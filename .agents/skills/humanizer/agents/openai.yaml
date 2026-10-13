@@ -1,0 +1,4 @@
+interface:
+  display_name: "humanizer"
+  short_description: "Remove AI Writing Patterns"
+

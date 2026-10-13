@@ -1,0 +1,194 @@
+{
+  "$schema": "https://json.schemastore.org/package.json",
+  "name": "job-application-writer",
+  "version": "1.2.0",
+  "description": "Agent skill bundle that writes a complete job application for one role: an ATS-compatible CV plus a tailored cover letter, produced by a fixed six-skill pipeline.",
+  "license": "MIT",
+  "keywords": [
+    "agent-skills",
+    "claude-code",
+    "job-search",
+    "resume",
+    "cover-letter",
+    "ats"
+  ],
+  "author": {
+    "name": "Spyridon Peppas"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/__GITHUB_HANDLE__/job-application-writer.git"
+  },
+  "homepage": "https://github.com/__GITHUB_HANDLE__/job-application-writer#readme",
+  "bugs": "https://github.com/__GITHUB_HANDLE__/job-application-writer/issues",
+  "entrySkill": "job-application-writer",
+  "skillsRoot": ".agents/skills",
+
+  "runtime": {
+    "workspaceRoot": "~/agent-workspace/job-research/",
+    "requiredPaths": [
+      "inputs/career-experiance/career-experiance.md",
+      "inputs/roles/"
+    ],
+    "optionalPaths": [
+      "inputs/cover-letters/",
+      "inputs/projects-context/"
+    ],
+    "outputPath": "outputs/applications/<company>-<role-slug>/",
+    "externalServices": [
+      {
+        "name": "CheckMyATS",
+        "url": "https://checkmyats.com/resume-checker/",
+        "required": false,
+        "note": "Optional ATS scoring. The skill degrades gracefully and reports unavailability instead of blocking delivery."
+      }
+    ]
+  },
+
+  "pipeline": [
+    "job-application-writer",
+    "job-description-analyzer",
+    "resume-tailor",
+    "resume-bullet-writer",
+    "resume-ats-optimizer",
+    "cover-letter-generator",
+    "resume-formatter",
+    "humanizer"
+  ],
+
+  "skills": [
+    {
+      "name": "job-application-writer",
+      "path": ".agents/skills/job-application-writer",
+      "version": "1.2.0",
+      "role": "orchestrator",
+      "license": "MIT",
+      "origin": "original",
+      "author": "Spyridon Peppas, Hermes Agent",
+      "dependsOn": [
+        "job-description-analyzer",
+        "resume-tailor",
+        "resume-bullet-writer",
+        "resume-ats-optimizer",
+        "cover-letter-generator",
+        "resume-formatter",
+        "humanizer"
+      ]
+    },
+    {
+      "name": "job-description-analyzer",
+      "path": ".agents/skills/job-description-analyzer",
+      "version": null,
+      "role": "pipeline:step-a",
+      "license": "MIT",
+      "origin": "upstream",
+      "upstream": {
+        "repo": "https://github.com/Paramchoudhary/ResumeSkills",
+        "ref": "74ae19e7c62b0516d1c298328e5544976c12da5d",
+        "path": "skills/job-description-analyzer/SKILL.md",
+        "copyright": "Copyright (c) 2026 Resume Skills"
+      },
+      "localModifications": ["description re-folded to a YAML block scalar"]
+    },
+    {
+      "name": "resume-tailor",
+      "path": ".agents/skills/resume-tailor",
+      "version": null,
+      "role": "pipeline:step-b",
+      "license": "MIT",
+      "origin": "upstream",
+      "upstream": {
+        "repo": "https://github.com/Paramchoudhary/ResumeSkills",
+        "ref": "74ae19e7c62b0516d1c298328e5544976c12da5d",
+        "path": "skills/resume-tailor/SKILL.md",
+        "copyright": "Copyright (c) 2026 Resume Skills"
+      },
+      "localModifications": []
+    },
+    {
+      "name": "resume-bullet-writer",
+      "path": ".agents/skills/resume-bullet-writer",
+      "version": null,
+      "role": "pipeline:step-c",
+      "license": "MIT",
+      "origin": "upstream",
+      "upstream": {
+        "repo": "https://github.com/Paramchoudhary/ResumeSkills",
+        "ref": "74ae19e7c62b0516d1c298328e5544976c12da5d",
+        "path": "skills/resume-bullet-writer/SKILL.md",
+        "copyright": "Copyright (c) 2026 Resume Skills"
+      },
+      "localModifications": ["description re-folded to a YAML block scalar"]
+    },
+    {
+      "name": "resume-ats-optimizer",
+      "path": ".agents/skills/resume-ats-optimizer",
+      "version": null,
+      "role": "pipeline:step-d",
+      "license": "MIT",
+      "origin": "upstream",
+      "upstream": {
+        "repo": "https://github.com/Paramchoudhary/ResumeSkills",
+        "ref": "74ae19e7c62b0516d1c298328e5544976c12da5d",
+        "path": "skills/resume-ats-optimizer/SKILL.md",
+        "copyright": "Copyright (c) 2026 Resume Skills"
+      },
+      "localModifications": ["description re-folded to a YAML block scalar"]
+    },
+    {
+      "name": "cover-letter-generator",
+      "path": ".agents/skills/cover-letter-generator",
+      "version": null,
+      "role": "pipeline:step-e",
+      "license": "MIT",
+      "origin": "upstream",
+      "upstream": {
+        "repo": "https://github.com/Paramchoudhary/ResumeSkills",
+        "ref": "74ae19e7c62b0516d1c298328e5544976c12da5d",
+        "path": "skills/cover-letter-generator/SKILL.md",
+        "copyright": "Copyright (c) 2026 Resume Skills"
+      },
+      "localModifications": [
+        "description re-folded to a YAML block scalar",
+        "trigger phrases added to description"
+      ]
+    },
+    {
+      "name": "resume-formatter",
+      "path": ".agents/skills/resume-formatter",
+      "version": null,
+      "role": "pipeline:step-f",
+      "license": "MIT",
+      "origin": "upstream",
+      "upstream": {
+        "repo": "https://github.com/Paramchoudhary/ResumeSkills",
+        "ref": "74ae19e7c62b0516d1c298328e5544976c12da5d",
+        "path": "skills/resume-formatter/SKILL.md",
+        "copyright": "Copyright (c) 2026 Resume Skills"
+      },
+      "localModifications": []
+    },
+    {
+      "name": "humanizer",
+      "path": ".agents/skills/humanizer",
+      "version": "2.5.1",
+      "role": "pipeline:finish",
+      "license": "MIT",
+      "origin": "upstream",
+      "upstream": {
+        "repo": "https://github.com/blader/humanizer",
+        "ref": "225a6f39ac85f76ee48dbad772ea4abe4ed6c9d8",
+        "path": "SKILL.md",
+        "copyright": "Copyright (c) 2025 Siqi Chen"
+      },
+      "localModifications": ["ported into the Hermes agents bundle; own LICENSE retained in-tree"]
+    }
+  ],
+
+  "installTargets": {
+    "globalAgents": "~/.agents/skills/",
+    "projectAgents": ".agents/skills/",
+    "claudeCodePlugin": ".claude-plugin/plugin.json",
+    "claudeCodeSkills": ".claude/skills/"
+  }
+}

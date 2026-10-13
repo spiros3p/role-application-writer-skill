@@ -1,0 +1,25 @@
+# macOS
+.DS_Store
+.AppleDouble
+._*
+.Spotlight-V100
+.Trashes
+
+# Editors
+.vscode/
+.idea/
+*.swp
+*~
+
+# Local agent / tool state that must never enter the public repo
+.freebuff/
+.claude/settings.local.json
+.cursor/
+
+# Never commit real job-search data. The skill's own workspace is
+# ~/agent-workspace/job-research/ and is not part of this repository, but
+# guard anyway in case someone works inside a checkout.
+inputs/
+outputs/
+ats-checks/
+career-experiance.md

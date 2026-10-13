@@ -1,0 +1,96 @@
+name: Bug report
+description: Something in the pipeline did not behave as documented.
+title: '[bug] '
+labels: ['bug']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **Do not paste your CV, cover letter, or career history into this form.**
+        They contain identifiers that follow you, and a public issue is not a
+        private channel. Describe the behaviour and share a *synthetic* example.
+        If you need to show output that contains real data, open a private
+        security advisory instead and say so here without the content.
+
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened
+      description: What the agent did, and what you expected instead.
+      placeholder: |
+        Expected: the pipeline stops after two C.1 revisions and keeps the 78-scoring draft.
+
+        Actual: it attempted a third revision.
+    validations:
+      required: true
+
+  - type: textarea
+    id: stage
+    attributes:
+      label: Pipeline stage
+      description: Where in the pipeline this happened, if you know.
+      placeholder: 'Stage C.1 — CheckMyATS revision loop'
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: Bundle version
+      description: The output of `cat VERSION` from your checkout.
+      placeholder: '1.1.0'
+    validations:
+      required: true
+
+  - type: input
+    id: agent
+    attributes:
+      label: Agent and skills directory
+      description: Which agent, and where its skills live.
+      placeholder: 'Claude Code 2.x, ~/.claude/skills/'
+    validations:
+      required: true
+
+  - type: dropdown
+    id: install-method
+    attributes:
+      label: Install method
+      options:
+        - scripts/install.sh
+        - Claude Code plugin (--plugin-dir)
+        - Copied .agents/skills manually
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproducible
+    attributes:
+      label: Synthetic reproduction
+      description: |
+        The smallest workspace and prompt that shows the same behaviour, with
+        invented names and numbers. The skill's own regression cases live in
+        `.agents/skills/job-application-writer/references/checkmyats.md`; if one
+        of them behaves differently, say which and how.
+    validations:
+      required: false
+
+  - type: textarea
+    id: notes
+    attributes:
+      label: Anything else
+      description: Warnings, gap reports, or residue the run reported.
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Before submitting
+      options:
+        - label: I searched existing issues for this.
+          required: true
+        - label: I removed all real names, employers, and contact details.
+          required: true
+        - label: I checked that this is not a vendored-skill bug belonging upstream (see NOTICE.md).
+          required: false

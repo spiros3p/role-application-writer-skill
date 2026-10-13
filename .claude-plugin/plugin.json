@@ -1,0 +1,20 @@
+{
+  "name": "job-application-writer",
+  "displayName": "Job Application Writer",
+  "version": "1.2.0",
+  "description": "Write a complete job application for one role: an ATS-compatible CV plus a tailored cover letter, produced by a fixed six-skill pipeline with a humanizer finish pass.",
+  "author": {
+    "name": "Spyridon Peppas"
+  },
+  "homepage": "https://github.com/__GITHUB_HANDLE__/job-application-writer#readme",
+  "repository": "https://github.com/__GITHUB_HANDLE__/job-application-writer",
+  "license": "MIT",
+  "keywords": [
+    "job-search",
+    "resume",
+    "cover-letter",
+    "ats",
+    "cv"
+  ],
+  "skills": "./.agents/skills/"
+}

@@ -1,0 +1,53 @@
+name: Feature request
+description: Suggest a change to the pipeline, the bundle, or the packaging.
+title: '[feature] '
+labels: ['enhancement']
+body:
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - Pipeline behaviour (stages, budgets, thresholds)
+        - Orchestrator instructions only
+        - Reporting and gap disclosure
+        - Packaging, install, or versioning
+        - Documentation
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: The problem
+      description: What you could not do, or what produced a worse result than you needed.
+      placeholder: |
+        The CV stays at 750 words but my cover letter has no room for the part
+        where I explain a career gap.
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed change
+      description: What you would change, and where in the skill it belongs.
+    validations:
+      required: true
+
+  - type: textarea
+    id: impact
+    attributes:
+      label: Impact on existing workspaces
+      description: |
+        Does this change output for people who already have a workspace set up?
+        That determines whether it is a patch or a minor bump.
+    validations:
+      required: false
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives you considered
+    validations:
+      required: false

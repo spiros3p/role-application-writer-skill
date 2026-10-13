@@ -1,0 +1,132 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    name: Validate bundle and packaging
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install shellcheck
+        run: sudo apt-get update && sudo apt-get install -y shellcheck
+
+      - name: Bash syntax check
+        run: |
+          for f in scripts/*.sh; do
+            echo "checking $f"
+            bash -n "$f"
+          done
+
+      - name: Shellcheck
+        run: |
+          # SC2086 is intentionally not excluded: the installer quotes everything.
+          shellcheck -S warning scripts/*.sh
+
+      - name: Release gate
+        run: ./scripts/validate.sh --strict
+
+      - name: JSON manifests parse
+        run: |
+          jq empty bundle.json
+          jq empty .claude-plugin/plugin.json
+
+      - name: Bundled skills are valid UTF-8 text with no CRLF
+        run: |
+          nonutf8=$(find .agents/skills -type f -name '*.md' -print0 \
+            | xargs -0 file --mime-encoding \
+            | grep -vE 'charset=(utf-8|us-ascii)' || true)
+          if [ -n "$nonutf8" ]; then
+            printf '%s\n' "$nonutf8"
+            echo "::error::non-UTF-8 file in the bundle"
+            exit 1
+          fi
+          if grep -rlU $'\r' .agents/skills >/dev/null 2>&1; then
+            echo "::error::CRLF line endings in the bundle"
+            exit 1
+          fi
+          echo "ok"
+
+  install:
+    name: Install smoke test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install into a scratch HOME
+        run: |
+          export TESTHOME
+          TESTHOME="$(mktemp -d)"
+          HOME="$TESTHOME" ./scripts/install.sh --target global
+          echo "TESTHOME=$TESTHOME" >> "$GITHUB_ENV"
+
+      - name: Verify the full closure landed
+        run: |
+          status=0
+          for s in job-application-writer job-description-analyzer resume-tailor \
+                   resume-bullet-writer resume-ats-optimizer cover-letter-generator \
+                   resume-formatter humanizer; do
+            if [ -f "$TESTHOME/.agents/skills/$s/SKILL.md" ]; then
+              echo "ok   $s"
+            else
+              echo "::error::missing $s"
+              status=1
+            fi
+          done
+          exit $status
+
+      - name: Supporting files travelled with their skills
+        run: |
+          test -f "$TESTHOME/.agents/skills/job-application-writer/references/checkmyats.md" \
+            || { echo "::error::checkmyats.md did not install"; exit 1; }
+          test -f "$TESTHOME/.agents/skills/job-application-writer/references/cv-craft.md" \
+            || { echo "::error::cv-craft.md did not install"; exit 1; }
+          test -f "$TESTHOME/.agents/skills/humanizer/LICENSE" \
+            || { echo "::error::humanizer LICENSE did not install"; exit 1; }
+          echo "ok"
+
+      - name: No disabled flag in the installed copy
+        run: |
+          if grep -rq '^disabled: true$' "$TESTHOME/.agents/skills"; then
+            echo "::error::installed bundle carries disabled: true"
+            exit 1
+          fi
+          echo "ok"
+
+      - name: Refuses to overwrite without --force
+        run: |
+          if HOME="$TESTHOME" ./scripts/install.sh --target global >/dev/null 2>&1; then
+            echo "::error::installer overwrote without --force"
+            exit 1
+          fi
+          echo "ok"
+
+  plugin:
+    name: Claude Code plugin manifest
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Validate plugin manifest
+        continue-on-error: true
+        run: claude plugin validate . --strict || echo "::notice::claude CLI unavailable; manifest shape is covered by validate.sh"
+
+      - name: Manifest cross-check
+        run: |
+          name=$(jq -r '.name' .claude-plugin/plugin.json)
+          version=$(jq -r '.version' .claude-plugin/plugin.json)
+          skills_path=$(jq -r '.skills' .claude-plugin/plugin.json)
+          canonical=$(cat VERSION)
+
+          [ "$name" = "job-application-writer" ] || { echo "::error::bad plugin name: $name"; exit 1; }
+          [ "$version" = "$canonical" ] || { echo "::error::plugin version $version != VERSION $canonical"; exit 1; }
+          [ "$skills_path" = "./.agents/skills/" ] || { echo "::error::plugin skills path is $skills_path"; exit 1; }
+          echo "ok"
