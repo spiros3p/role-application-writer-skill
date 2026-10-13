@@ -235,11 +235,11 @@ else
   bad ".DS_Store found in the bundle"
 fi
 
-if grep -rq '^spiros3p\|spiros3p' --include='*.json' --include='*.md' . 2>/dev/null; then
+if grep -rq '^__GITHUB_HANDLE__\|__GITHUB_HANDLE__' --include='*.json' --include='*.md' . 2>/dev/null; then
   if [ "$STRICT" -eq 1 ]; then
-    bad "spiros3p placeholder still present (replace before tagging a release)"
+    bad "__GITHUB_HANDLE__ placeholder still present (replace before tagging a release)"
   else
-    warn "spiros3p placeholder present - fine for a draft, fails under --strict"
+    warn "__GITHUB_HANDLE__ placeholder present - fine for a draft, fails under --strict"
   fi
 fi
 
