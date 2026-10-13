@@ -58,7 +58,7 @@ offline and offline-installed. Full attribution and pinned commits are in
 ### Option 1 — the installer (recommended)
 
 ```bash
-git clone https://github.com/__GITHUB_HANDLE__/job-application-writer.git
+git clone https://github.com/spiros3p/job-application-writer.git
 cd job-application-writer
 ./scripts/install.sh --list-targets   # see where each agent keeps skills
 ./scripts/install.sh --target global  # or: claude, cursor, codex, gemini, opencode, project
@@ -70,7 +70,7 @@ Add `--dry-run` to preview, `--force` to replace an existing install.
 ### Option 2 — Claude Code plugin
 
 ```bash
-git clone https://github.com/__GITHUB_HANDLE__/job-application-writer.git
+git clone https://github.com/spiros3p/job-application-writer.git
 claude --plugin-dir ./job-application-writer
 ```
 

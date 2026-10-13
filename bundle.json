@@ -17,10 +17,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/__GITHUB_HANDLE__/job-application-writer.git"
+    "url": "https://github.com/spiros3p/job-application-writer.git"
   },
-  "homepage": "https://github.com/__GITHUB_HANDLE__/job-application-writer#readme",
-  "bugs": "https://github.com/__GITHUB_HANDLE__/job-application-writer/issues",
+  "homepage": "https://github.com/spiros3p/job-application-writer#readme",
+  "bugs": "https://github.com/spiros3p/job-application-writer/issues",
   "entrySkill": "job-application-writer",
   "skillsRoot": ".agents/skills",
 

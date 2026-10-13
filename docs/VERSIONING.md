@@ -83,7 +83,7 @@ a downloadable archive.
 
 Two things are placeholders and must be replaced, or `--strict` will fail:
 
-- `__GITHUB_HANDLE__` in `bundle.json`, `.claude-plugin/plugin.json`,
+- `spiros3p` in `bundle.json`, `.claude-plugin/plugin.json`,
   `README.md`, `docs/INSTALL.md`, `SECURITY.md`
 - your repository URL, so the release workflow's archive is built correctly
 
@@ -151,7 +151,7 @@ Reproducible installs:
 
 ```bash
 # a release tarball
-curl -sSL https://github.com/__GITHUB_HANDLE__/job-application-writer/archive/refs/tags/v1.1.0.tar.gz \
+curl -sSL https://github.com/spiros3p/job-application-writer/archive/refs/tags/v1.1.0.tar.gz \
   | tar xz && cp -R job-application-writer-1.1.0/.agents/skills/* ~/.agents/skills/
 ```
 

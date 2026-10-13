@@ -12,7 +12,7 @@
 Please **do not open a public issue** for a security problem.
 
 Use GitHub's private reporting on this repository
-(<https://github.com/__GITHUB_HANDLE__/job-application-writer/security/advisories/new>).
+(<https://github.com/spiros3p/job-application-writer/security/advisories/new>).
 Expect an acknowledgement within seven days.
 
 ---

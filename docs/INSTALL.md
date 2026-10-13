@@ -22,7 +22,7 @@ Every method below installs the complete bundle.
 ## Method 1 — the installer
 
 ```bash
-git clone https://github.com/__GITHUB_HANDLE__/job-application-writer.git
+git clone https://github.com/spiros3p/job-application-writer.git
 cd job-application-writer
 
 ./scripts/install.sh --list-targets
@@ -62,7 +62,7 @@ skill or its supporting files are missing.
 ## Method 2 — Claude Code plugin
 
 ```bash
-git clone https://github.com/__GITHUB_HANDLE__/job-application-writer.git
+git clone https://github.com/spiros3p/job-application-writer.git
 claude --plugin-dir ./job-application-writer
 ```
 
@@ -135,7 +135,7 @@ git pull
 Or, without the clone, pull a single release archive and extract:
 
 ```bash
-curl -sSL https://github.com/__GITHUB_HANDLE__/job-application-writer/archive/refs/tags/v1.1.0.tar.gz \
+curl -sSL https://github.com/spiros3p/job-application-writer/archive/refs/tags/v1.1.0.tar.gz \
   | tar xz && cp -R job-application-writer-1.1.0/.agents/skills/* ~/.agents/skills/
 ```
 

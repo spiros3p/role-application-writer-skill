@@ -1,14 +1,14 @@
 blank_issues_enabled: false
 contact_links:
   - name: How do I install this?
-    url: https://github.com/__GITHUB_HANDLE__/job-application-writer/blob/main/docs/INSTALL.md
+    url: https://github.com/spiros3p/job-application-writer/blob/main/docs/INSTALL.md
     about: Install methods, verification, upgrades, and uninstall.
   - name: Workspace says "experience" but the skill says "experiance"
-    url: https://github.com/__GITHUB_HANDLE__/job-application-writer/blob/main/docs/WORKSPACE.md
+    url: https://github.com/spiros3p/job-application-writer/blob/main/docs/WORKSPACE.md
     about: The spelling is deliberate and load-bearing. This page explains why.
   - name: Contribution rules
-    url: https://github.com/__GITHUB_HANDLE__/job-application-writer/blob/main/CONTRIBUTING.md
+    url: https://github.com/spiros3p/job-application-writer/blob/main/CONTRIBUTING.md
     about: How to change a vendored skill, how to bump a pin, and what CI checks.
   - name: Security vulnerability
-    url: https://github.com/__GITHUB_HANDLE__/job-application-writer/security/advisories/new
+    url: https://github.com/spiros3p/job-application-writer/security/advisories/new
     about: Report privately. Do not open a public issue.
