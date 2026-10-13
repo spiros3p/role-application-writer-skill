@@ -36,14 +36,13 @@ metadata:
 
 # Job Application Writer
 
-Orchestrator. For one target role: complete ATS-compatible CV, tailored cover
-letter, CV craft audit. Runs six external skills in fixed sequence, each fed
-explicit workspace inputs. Holds the CV to the craft standard in
-`references/cv-craft.md`. Finishes both written files with a humanizer pass.
-Between Steps C and D, run CheckMyATS against the CV and the full role
-description. Read `references/checkmyats.md` before that step — it defines the
-browser procedure, standing permission, bounded revision policy, and evidence
-requirements.
+Orchestrator. One target role → ATS-compatible CV + tailored cover letter +
+CV craft audit. Six external skills run in fixed sequence, each fed explicit
+workspace inputs. CV held to the craft standard in `references/cv-craft.md`.
+Both written files finished by a humanizer pass. Between Steps C and D, run
+CheckMyATS against the CV and full role description; read
+`references/checkmyats.md` first — browser procedure, standing permission,
+bounded revision policy, evidence requirements.
 
 Workspace root: `~/agent-workspace/job-research/`
 
@@ -158,18 +157,17 @@ discipline is the point.
    repairs, and any residual failures to `cv-audit.md` in the run
    directory. A low count never blocks delivery.
 6. **Step C.1 — CheckMyATS.** Follow `references/checkmyats.md`. Scan the
-   content-final draft, meaning the Step C.2 output, with the full role
-   description first. An
-   initial score **>=80, including exactly 80 and scores above 92**, causes
-   no CheckMyATS-driven edits. Only an initial score **<80** opens a
-   revision loop: target **80–92 inclusive**, not 100; stop at the first
-   in-range result. Allow at most **2 revised drafts**, each rescanned.
-   Add only relevant missing keywords supported by workspace evidence.
-   Stop earlier if no supported improvement remains or progress stalls.
-   If a revision overshoots 92, stop and report it; do not degrade truthful
-   content to force a lower score. Keep the best valid draft. Failure to
-   reach the target or access the site does not block the application:
-   continue and report the warning. Never substitute an invented score.
+   content-final draft — the Step C.2 output — with the full role description
+   first. Initial
+   score **>=80, including exactly 80 and scores above 92**: no
+   CheckMyATS-driven edits. Initial score **<80**: revision loop opens, target
+   **80–92 inclusive**, not 100, stop at the first in-range result. At most
+   **2 revised drafts**, each rescanned. Add only relevant missing keywords
+   supported by workspace evidence; stop earlier if nothing supported remains
+   or progress stalls. A revision overshooting 92: stop and report it, never
+   degrade truthful content to force a lower score. Keep the best valid draft.
+   Unreached target or unreachable site never blocks the application: continue
+   and report the warning. Never substitute an invented score.
 7. **Step D — resume-ats-optimizer.** Read its `SKILL.md`, follow against the
    retained draft plus the role keywords. Iterate at most 2
    passes on reported failures. Keep its assessment separate from the
@@ -206,21 +204,19 @@ discipline is the point.
     `outputs/applications/<company>-<role-slug>/` via `write_file`.
     `cv-audit.md` is written into the same directory at Step C.2 and updated
     at Step G.
-13. **Verify.** Confirm the saved files and the Interests section. After
-    formatting and humanizing, run one measurement-only CheckMyATS scan
-    of the final CV's faithful TXT export with the same role description.
-    Never reopen the revision loop. If the exact TXT and role hashes
-    match an earlier completed scan, reuse that scan instead. Record
-    unavailable results as unavailable, not zero, and distinguish the
-    final result from any earlier draft score. See the reference for
-    freshness checks and evidence storage.
-14. **Report.** In the chat: one paragraph summary, both written files'
-    absolute paths, the CV craft rubric counts from Step C.2 and Step G
-    with any dimension still failing, initial and final CheckMyATS scores
-    (or unavailable), revision count, the separate Step D assessment, and
-    the ATS report and audit paths. Report unsupported keywords, dropped
-    roles, unmet target or overshoot, superseded measurements, website
-    failures, and any other gaps in the workspace evidence.
+13. **Verify.** Confirm saved files and the Interests section. After
+    formatting and humanizing, run one measurement-only CheckMyATS scan of
+    the final CV's faithful TXT export with the same role description. Never
+    reopen the revision loop. Exact TXT and role hashes matching an earlier
+    completed scan: reuse it. Record unavailable results as unavailable, not
+    zero, and distinguish the final result from any earlier draft score. See
+    the reference for freshness checks and evidence storage.
+14. **Report.** In chat: one-paragraph summary, both written files' absolute
+    paths, CV craft rubric counts from Step C.2 and Step G with any dimension
+    still failing, initial and final CheckMyATS scores (or unavailable),
+    revision count, separate Step D assessment, ATS report and audit paths.
+    Report unsupported keywords, dropped roles, unmet target or overshoot,
+    superseded measurements, website failures, and every other evidence gap.
 
 ## Voice rules (the "knows what they're talking about" standard)
 
@@ -228,18 +224,18 @@ Non-negotiable unless the user explicitly overrides tone.
 
 - **Concrete over abstract.** "Cut test pipeline from 10+ min to 1-3
   min" beats "improved developer productivity."
-- **Stack-named, not generic.** Name tools, versions, services.
+- **Stack-named, not generic.** Tools, versions, services named.
 - **No hedging.** Cut "I believe," "I feel," "I think I can." State it.
-- **Short sentences when stakes are high.** A metric line is a single line.
-- **No buzzword salads.** A word that could sit on a generic list
-  ("passionate," "driven," "synergy") is banned.
+- **Short sentences when stakes are high.** One metric, one line.
+- **No buzzword salads.** Generic-list words ("passionate," "driven,"
+  "synergy") are banned.
 - **Mirror the closest past letter's register.** Warm-professional, not
   stiff. The humanizer pass enforces this last.
 
 ## Pitfalls
 
 - **Don't invent.** Every project, employer, year, metric, and tech in
-  both files traces back to `career-experiance.md` or a
+  both files must trace back to `career-experiance.md` or a
   `projects-context/` file. Unevidenced role requirements get surfaced
   in the report, never fabricated.
 - **Don't echo the job ad.** Restating requirements wastes space. Show,
@@ -275,9 +271,8 @@ Non-negotiable unless the user explicitly overrides tone.
   `read_file`): `<First>_<Last>-CV-<role-slug>.md`, `cover-letter.md`, and
   `cv-audit.md`.
 - CV is ≤750 words, title line follows `# <Name> - <Role>` and carries the
-  posting's own title, header contains no phone, no
-  authorization/sponsorship remark, no portfolio link. Summary ≤40 words,
-  Education ≤2 lines.
+  posting's own title, header has no phone, no authorization/sponsorship
+  remark, no portfolio link. Summary ≤40 words, Education ≤2 lines.
 - Positioning holds: one primary identity, no second discipline competing
   in the header or the summary's first clause.
 - The craft rubric is scored on all seven dimensions at Step C.2 and again
@@ -293,7 +288,7 @@ Non-negotiable unless the user explicitly overrides tone.
   evidence and input hashes. An initial score >=80 causes zero C.1 edits.
 - An initial score <80 permits at most 2 C.1 revisions targeting 80–92;
   each added keyword has an evidence source. Final verification is
-  measurement-only. Step D still has its separate 2-pass limit.
+  measurement-only. Step D keeps its separate 2-pass limit.
 - Banned-token scan clean (or residue reported) after at most 2
   humanizer passes per file.
 - Dropped-as-irrelevant roles named in the report.

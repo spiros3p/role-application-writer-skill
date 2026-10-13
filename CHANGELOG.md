@@ -60,6 +60,11 @@ delivered file.
 - The rubric is deliberately not a numeric optimisation target. It has no
   ceiling, no chasing score, and no licence to invent evidence to pass a
   dimension.
+- The orchestrator and both references were compressed for agent reading
+  (about 7% fewer words) with the rules from the `caveman-compress` skill.
+  Headings, fenced code, inline code, paths, thresholds, and the full rule set
+  are unchanged; the pre-compression text is in the skill's out-of-tree backup
+  directory and the bundle gate still passes.
 
 ## [1.1.0] - 2026-10-03
 
