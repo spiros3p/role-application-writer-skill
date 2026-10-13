@@ -51,11 +51,13 @@ head_ "Repository files"
 
 for f in LICENSE README.md CHANGELOG.md NOTICE.md CONTRIBUTING.md SECURITY.md \
          VERSION bundle.json .claude-plugin/plugin.json \
-         scripts/install.sh scripts/validate.sh scripts/bump-version.sh; do
+         scripts/install.sh scripts/validate.sh scripts/bump-version.sh \
+         scripts/check-rules.sh; do
   [ -f "$f" ] && ok "$f exists" || bad "$f is missing"
 done
 
-for f in scripts/install.sh scripts/validate.sh scripts/bump-version.sh scripts/sync-from-local.sh; do
+for f in scripts/install.sh scripts/validate.sh scripts/bump-version.sh \
+         scripts/sync-from-local.sh scripts/check-rules.sh; do
   [ -x "$f" ] && ok "$f is executable" || bad "$f is not executable"
 done
 
@@ -208,6 +210,21 @@ for s in $SKILLS; do
     bad "$s has no license anywhere (frontmatter, bundle.json, or LICENSE file)"
   fi
 done
+
+# ---------------------------------------------------------------------------
+head_ "Rule inventory"
+
+# The bundle is instructions an agent follows, so every check above is structural
+# and says nothing about whether a rule survived an edit. scripts/check-rules.sh
+# pins the load-bearing phrases and the rubric's shape.
+RULE_OUT=$(./scripts/check-rules.sh 2>&1)
+RULE_RC=$?
+if [ "$RULE_RC" -eq 0 ]; then
+  ok "$(printf '%s' "$RULE_OUT" | tail -1)"
+else
+  bad "rule inventory: load-bearing rule text is missing or changed"
+  printf '%s\n' "$RULE_OUT" | sed 's/^/        /'
+fi
 
 # ---------------------------------------------------------------------------
 head_ "Packaging hygiene"

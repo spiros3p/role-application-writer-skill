@@ -26,6 +26,10 @@ reproducibly versioned.
 4. **Never commit real career data.** Test with synthetic workspaces only.
 5. **Do not fabricate results.** The skill's most important property is that it
    refuses to invent metrics, scores, or experience. Changes must not weaken it.
+6. **Do not quietly weaken a rule.** `scripts/check-rules.sh` pins the
+   load-bearing phrases and the rubric's shape, and the release gate runs it. If
+   a rule genuinely has to change, change it deliberately, keep the inventory in
+   step, and say why in the changelog.
 
 <!-- project-skills:managed -->
 ## Agent Skills
@@ -66,8 +70,11 @@ Copied to `.agents/skills/` (index: `.agents/SKILL_DIRECTORY.md`). Use these bef
 .agents/SKILL_DIRECTORY.md   generated index: origin, purpose, supporting files
 scripts/install.sh    install the bundle into any agent's skills directory
 scripts/validate.sh   release gate: version agreement, closure, frontmatter, licensing
+scripts/check-rules.sh       release gate: load-bearing rule phrases and rubric shape
 scripts/bump-version.sh      SemVer bump across all version sources
 scripts/sync-from-local.sh   maintainer only: re-materialise from ~/.agents/skills
+evaluations/          behavioural records per version, and the target of the
+                      agent workspace symlink (see evaluations/README.md)
 docs/                 install, workspace, pipeline, versioning
 bundle.json           manifest with pinned upstream commits and per-skill provenance
 .claude-plugin/       Claude Code plugin manifest
@@ -77,6 +84,7 @@ bundle.json           manifest with pinned upstream commits and per-skill proven
 
 ```bash
 ./scripts/validate.sh --strict      # must pass before committing
+./scripts/check-rules.sh            # rule inventory on its own
 ./scripts/sync-from-local.sh --check  # only if you maintain from ~/.agents/skills
 ./scripts/install.sh --dry-run --target claude
 ```

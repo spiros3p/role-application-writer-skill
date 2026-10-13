@@ -9,7 +9,36 @@ release is tagged `v<version>` and matches the orchestrator skill's own
 
 ## [Unreleased]
 
-Nothing yet.
+### Added
+
+- **`scripts/check-rules.sh`, wired into the release gate.** The bundle is
+  instructions an agent follows, so every other gate check is structural and
+  none of them can tell whether a rule survived an edit: a compression pass or a
+  careless rewrite can drop a threshold or a refusal and the build stays green.
+  The new check pins the load-bearing phrases (budgets, thresholds, refusal
+  rules, the measurement-parity rule) and the rubric's seven-dimension shape.
+  Markdown emphasis, dash style and line wrapping are normalised away first, so
+  restyling and re-compressing raise no false alarm. Verified to fire on a
+  reworded phrase, a dropped rubric dimension and a changed C.1 threshold, and
+  to stay quiet on a re-wrapped paragraph.
+
+### Changed
+
+- **`evaluations/` is now the skill's agent workspace.** The v1.1.0 behavioural
+  regression record and the two earlier skill snapshots moved out of
+  `~/.agents/workspaces/job-application-writer/` into the repository, and that
+  workspace path is now a symlink to `evaluations/`. The workspace resolves
+  into the repo instead of holding a second copy that drifts out of date. It
+  points at the subdirectory rather than the repository root on purpose: a
+  workspace  cleanup is routine, and a `rm -rf` aimed at the root would take the
+  skill source with it.
+
+- **The installed skill is now a pointer, not a copy.** The file agents load
+  at `~/.agents/skills/job-application-writer/SKILL.md` contains only the path
+  to the repository copy, so the installed skill can no longer drift out of
+  date. The last full installed copy (1.1.0) was archived first as
+  `evaluations/snapshot-1.1.0/` — it existed nowhere else, including the git
+  history.
 
 ## [1.2.0] - 2026-10-13
 
